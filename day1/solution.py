@@ -6,27 +6,27 @@ with open("dial_input.csv") as f:
     dial_inputs = [row[0] for row in reader]
 
 
-def convert_item_to_number(item) -> int:
+def item_to_num(item) -> int:
     _, number = re.match(r"([A-Za-z]+)(\d+)", item).groups()
     return int(number)
 
 
 def single_click_parser(input_list) -> int:
-    dial_number = 50
+    dial_num = 50
     password = 0
 
     for item in input_list:
-        number = convert_item_to_number(item)
+        num = item_to_num(item)
 
         if item.startswith("L"):
-            dial_number -= number
+            dial_num -= num
         elif item.startswith("R"):
-            dial_number += number
+            dial_num += num
 
-        while dial_number > 99 or dial_number < 0:
-            dial_number = dial_number % 100
+        while dial_num > 99 or dial_num < 0:
+            dial_num = dial_num % 100
 
-        if dial_number == 0:
+        if dial_num == 0:
             password += 1
 
     return password
@@ -37,29 +37,29 @@ print("First password:", first_password)
 
 
 def multiple_click_parser(input_list) -> int:
-    dial_number = 50
+    dial_num = 50
     password = 0
     dial_loc = 0
 
     for item in input_list:
-        number = convert_item_to_number(item)
+        num = item_to_num(item)
 
         if item.startswith("L"):
-            dial_loc = -number
+            dial_loc = -num
         elif item.startswith("R"):
-            dial_loc = number
+            dial_loc = num
 
-        prev_pointer = dial_number
-        dial_number += dial_loc
+        prev_loc = dial_num
+        dial_num += dial_loc
 
-        crossings = abs(dial_number // 100)
-        dial_number = dial_number % 100
+        crossings = abs(dial_num // 100)
+        dial_num = dial_num % 100
 
-        if dial_number == 0 and dial_loc > 0:
+        if dial_num == 0 and dial_loc > 0:
             crossings -= 1
-        if prev_pointer == 0 and dial_loc < 0:
+        if prev_loc == 0 and dial_loc < 0:
             crossings -= 1
-        if dial_number == 0:
+        if dial_num == 0:
             crossings += 1
 
         password += crossings
