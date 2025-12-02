@@ -4,8 +4,12 @@ with open("data/day2.txt", "r") as f:  # "11-22" -> "[(11, 22)]"
 
 def invalid_id_part1(data):
     invalid_id_sum = 0
+
     for first, second in data:
-        for i in range(int(first), int(second) + 1):
+        start = int(first)
+        end = int(second)
+
+        for i in range(start, end + 1):
             current_id = str(i)
 
             if len(current_id) % 2 == 0:
@@ -21,27 +25,38 @@ def invalid_id_part1(data):
 
 
 ans1 = invalid_id_part1(data)
-print("Sum of invalid ID's:", ans1)
+print(ans1)
 
-# Part 2 incomplete
 
 def invalid_id_part2(data):
     invalid_id_sum = 0
+
     for first, second in data:
-        for i in range(int(first), int(second) + 1):
+        start = int(first)
+        end = int(second)
+
+        for i in range(start, end + 1):
             current_id = str(i)
+            total_len = len(current_id)
 
-            sequence_len = len(current_id) // 2
+            for chunk_size in range(1, total_len):
+                if total_len % chunk_size != 0:
+                    continue
 
-            if sequence_len == 0 and current_id[:i] * sequence_len == i:
-                left_slice, right_slice = (
-                    current_id[: int((len(current_id)) / sequence_len)],
-                    current_id[int((len(current_id)) / sequence_len) :],
-                )
+                chunks = [
+                    current_id[pos : pos + chunk_size]
+                    for pos in range(0, total_len, chunk_size)
+                ]
 
-                if left_slice == right_slice:
+                if len(chunks) < 2:
+                    continue
+
+                if all(chunk == chunks[0] for chunk in chunks):
                     invalid_id_sum += i
+                    break
+
     return invalid_id_sum
 
 
-print(invalid_id_part2(data))
+ans2 = invalid_id_part2(data)
+print(ans2)
