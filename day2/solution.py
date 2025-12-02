@@ -1,4 +1,4 @@
-with open("day2.txt", "r") as f:  # "11-22" -> "[(11, 22)]"
+with open("data/day2.txt", "r") as f:  # "11-22" -> "[(11, 22)]"
     data = [tuple(line.split("-")) for line in f.read().split(",")]
 
 
