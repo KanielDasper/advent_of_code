@@ -1,7 +1,7 @@
 import csv
 import re
 
-with open("dial_input.csv") as f:
+with open("day1.csv") as f:
     reader = csv.reader(f)
     dial_inputs = [row[0] for row in reader]
 
