@@ -1,6 +1,8 @@
+from main import parse_lines
+
+
 def solve(batteries: int):
-    with open("data/day3.txt", "r") as f:
-        data = [line.strip() for line in f.readlines()]
+    data = parse_lines("data/day3.txt")
 
     result = 0
 
