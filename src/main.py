@@ -1,4 +1,4 @@
-from day4 import part1, part2
+from day5 import part1, part2
 
 
 def parse_lines(file):
@@ -7,7 +7,7 @@ def parse_lines(file):
 
 
 def main():
-    lines = parse_lines("data/day4.txt")
+    lines = parse_lines("data/day5.txt")
     return (part1(lines), part2(lines))
 
 if __name__ == "__main__":
