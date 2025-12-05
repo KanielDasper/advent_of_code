@@ -40,7 +40,3 @@ def part2(data):
 
     merged = merge(ranges)
     return sum((end - start + 1) for start, end in merged)
-
-
-if __name__ == "__main__":
-    print(part1(), part2())
