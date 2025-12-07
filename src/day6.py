@@ -1,3 +1,4 @@
+from math import prod
 from main import parse_lines
 
 
@@ -22,23 +23,34 @@ def part1():
 
 
 def part2():
-    data = parse_lines("data/test_day6.txt")
-    nums, ops = data[:-1], data[-1:]
+    with open("data/test_day6.txt") as f:
+        lines = [
+            list(x.replace("\n", "").replace(" ", ".")) for x in f
+        ]  # Get whitespaces as dots
 
-    nums = reversed([num.split() for num in nums])
-    ops = " ".join(ops).split()
+    items = list(map(list, zip(*lines)))
 
-    for idx, op in enumerate(ops):
-        expr = ""
-        for num in nums:
-            expr += num[idx]
-            expr += op
+    res = 0
+    coll = []
+    print(items)
 
-        print(expr)
+    while len(items) > 0:
+        item = items.pop()
+        if len("".join(item).strip(".")) > 0:
+            coll.append(item)
+            op = item[-1]
+            if op in ("+", "*"):
+                numbers = ["".join(c[:-1]).strip(".") for c in coll]
+                numbers = [int(n) for n in numbers if len(n) > 0]
 
-
+                if op == "+":
+                    res += sum(numbers)
+                else:
+                    res += prod(numbers)
+                coll = []
+    return res
 
 
 if __name__ == "__main__":
     print(part1())
-    part2()
+    print(part2())

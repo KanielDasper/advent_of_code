@@ -1,9 +1,7 @@
-import csv
+from main import parse_lines
 import re
 
-with open("data/day1.csv") as f:
-    reader = csv.reader(f)
-    dial_inputs = [row[0] for row in reader]
+dial_inputs = parse_lines("data/day1.csv")
 
 
 def item_to_num(item) -> int:
